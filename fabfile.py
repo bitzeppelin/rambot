@@ -1,5 +1,6 @@
 # -*- coding: utf-8 *-
 
+import os
 import json
 
 from fabric.colors import green
@@ -16,7 +17,8 @@ def deploy():
 
 @task(alias='env')
 def set_envvars():
-    with open('private.environment.json') as f:
-        env = json.load(f)
-        envvars = ' '.join('%s="%s"' % (i, j) for i, j in env.iteritems())
-        local('dotcloud var set rambot %s' % envvars)
+    if os.path.isfile('private.environment.json'):
+        with open('private.environment.json') as f:
+            env = json.load(f)
+            envvars = ' '.join('%s="%s"' % (i, j) for i, j in env.iteritems())
+            local('dotcloud var set rambot %s' % envvars)
