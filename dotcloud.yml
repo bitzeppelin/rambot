@@ -1,0 +1,17 @@
+
+data:
+  type: redis
+
+hubot:
+  type: custom
+  buildscript: builder
+  process: ~/run
+  node_version: v0.6.19
+  hubot:
+    name: rambot
+  dependencies:
+    - underscore
+    - hubot-irc
+    - ntwitter
+  ports:
+    hubot: tcp
