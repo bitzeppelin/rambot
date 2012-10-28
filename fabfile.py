@@ -11,12 +11,11 @@ from fabric.operations import local
 @task(default=True)
 def deploy():
     local('dotcloud push rambot')
-    set_envvars()
     print green('Have fun!!!')
 
 
-@task(alias='env')
-def set_envvars():
+@task()
+def envvars():
     if os.path.isfile('private.environment.json'):
         with open('private.environment.json') as f:
             env = json.load(f)
