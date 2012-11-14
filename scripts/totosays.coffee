@@ -25,8 +25,8 @@ twit = new twitter options
 
 module.exports = (robot) ->
   robot.respond /toto(say)? (.*)$/i, (msg) ->
-    text = msg.match[2]
+    status = msg.match[2].replace(/'/g, "\'")
     twit
-      .updateStatus "#{escape(text)}", (err, data) -> if err then msg.send(err) else msg.send('ok')
+      .updateStatus "#{status}", (err, data) -> if err then msg.send(err) else msg.send('ok')
 
 # vim:cuc:cc=80:
