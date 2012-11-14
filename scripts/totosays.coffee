@@ -8,7 +8,7 @@
 #
 #
 # Commands:
-#   hubot totosay <phrase> - Send a tweet with <phrase>.
+#   hubot totosays <phrase> - Update @shittotosays status with <phrase>.
 #
 # Author:
 #   marsam
@@ -24,8 +24,8 @@ options =
 twit = new twitter options
 
 module.exports = (robot) ->
-  robot.respond /toto(say)? (.*)$/i, (msg) ->
-    status = msg.match[2].replace(/'/g, "\'")
+  robot.respond /(shit)?toto(says)? (.*)$/i, (msg) ->
+    status = msg.match[3].replace(/'/g, "\'")
     twit
       .updateStatus "#{status}", (err, data) -> if err then msg.send(err) else msg.send('ok')
 
