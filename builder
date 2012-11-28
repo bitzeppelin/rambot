@@ -7,7 +7,6 @@ CODEROOT=$PWD
 node_root=/opt/node
 
 
-
 # Installing node.js ##########################################################
 # From https://github.com/dotcloud/node-on-dotcloud
 [ "$SERVICE_NODE_VERSION" ] &&
@@ -35,14 +34,15 @@ else
 fi
 
 # Creating hubot ##############################################################
-
-echo "Creating $HUBOT"
-hubot --create $HUBOT_DIR
-
-mv $CODEROOT/scripts/* $HUBOT_DIR/scripts
+if [ ! -d $HUBOT_DIR ]; then
+  echo "Creating $HUBOT"
+  hubot --create $HUBOT_DIR
+  chmod +x $HUBOT_DIR/bin/hubot
+fi
 
 # Installing dependencies #####################################################
-
+# You can add your hubot dependencies below, this behaves same way that adding
+# the packages to package.json
 (
   cd $HUBOT_DIR
   npm update
@@ -51,24 +51,15 @@ mv $CODEROOT/scripts/* $HUBOT_DIR/scripts
   npm install underscore
 )
 
-chmod +x $HUBOT_DIR/bin/hubot
+
+mv $CODEROOT/scripts/* $HUBOT_DIR/scripts
 
 # Configuring hubot ###########################################################
 
 cat > ~/profile << EOF
 ## Redis Stuff
-export REDISTOGO_URL=\$DOTCLOUD_DATA_REDIS_URL
+export REDISTOGO_URL=\$DOTCLOUD_BRAIN_REDIS_URL
 export PORT=\$PORT_HUBOT
-
-## hubot-irc stuff
-export HUBOT_IRC_SERVER="irc.freenode.net"
-# export HUBOT_IRC_ROOMS=""
-export HUBOT_IRC_PASSWORD=""
-export HUBOT_IRC_NICK="$HUBOT"
-export HUBOT_IRC_UNFLOOD="false"
-# export HUBOT_LOG_LEVEL="debug"  # This helps to see what Hubot is doing
-# export HUBOT_IRC_DEBUG="true"
-
 EOF
 
 cat > ~/run << EOF
