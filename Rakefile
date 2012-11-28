@@ -13,6 +13,12 @@ task :deploy => [:init] do
 end
 
 
+task :restart, [:service, :instance] do |t, args|
+  args.with_defaults(:service => "hubot", :instance => "0")
+  sh "dotcloud restart #{args.service}.#{args.instance}"
+end
+
+
 task :env do
   if File.exists?('environment.json')
     env_vars = ''
