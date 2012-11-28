@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 node_modules
+environment.json
 private.environment.json
 *.sublime*
 .codeintel

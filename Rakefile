@@ -6,11 +6,9 @@
 require 'json'
 
 
-SCRIPTS = Dir.glob('scripts/*.coffee')
-
 task :default => :deploy
 
-task :deploy => SCRIPTS do |t|
+task :deploy => [:init] do
   sh "dotcloud push"
 end
 
