@@ -5,3 +5,4 @@ environment.json
 private.environment.json
 *.sublime*
 .codeintel
+.dotcloud
