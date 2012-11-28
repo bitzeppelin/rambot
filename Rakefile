@@ -29,5 +29,7 @@ end
 
 
 task :init do
-  sh "dotcloud connect --git rambot"
+  unless File.exists?('.dotcloud/config')
+    sh "dotcloud connect --git rambot"
+  end
 end
