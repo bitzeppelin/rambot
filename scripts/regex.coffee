@@ -23,7 +23,9 @@ REGEX = [
 threshold = 3
 
 module.exports = (robot) ->
-  robot.brain.data.regex_counter ||= 0
+  robot.brain.on 'loaded', =>
+    robot.brain.data.regex_counter ||= 0
+
   robot.hear /regex(es)?/i, (msg) ->
     robot.brain.data.regex_counter += 1
 
