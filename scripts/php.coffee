@@ -14,21 +14,17 @@
 #   marsam
 
 
-PHP= [
-  'http://i.imgur.com/hPOCQ.gif',
-  'http://i.imgur.com/0Dbrp.gif',
-  'http://i.imgur.com/BzLph.gif',
-  ]
+PHP = [
+  {'msg': 'wait wait, WHATCHU SAY?' , 'img':'http://i.imgur.com/hPOCQ.gif'},
+  {'msg': 'OMFG', 'img': 'http://i.imgur.com/0Dbrp.gif'},
+  {'msg': '', 'img': 'http://i.imgur.com/BzLph.gif'},
+  {'msg': '', 'img': 'http://media.tumblr.com/tumblr_m5j44q1psI1rqfksw.gif'}
+]
 
-
-# regex mention threshold
-threshold = 3
 
 module.exports = (robot) ->
-  robot.brain.data.regex_counter ||= 0
-
-  robot.hear /php/i, (msg) ->
+  robot.hear /(me\s+gusta|i\s+like|i\s+love|amo)\s+php/i, (msg) ->
     username = msg.message.user.name
 
-    message = msg.random REGEX
-    msg.send "#{username}, wait wait, WHATCHU SAY? #{message}"
+    message = msg.random PHP
+    msg.send "#{username}, #{message.msg} #{message.img}"
