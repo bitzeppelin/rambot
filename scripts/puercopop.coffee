@@ -1,5 +1,5 @@
 # Description:
-#   Ningún peruano decente discute con PuercoPop.
+#   Ningún peruano decente y bien informado discute con PuercoPop.
 #
 # Dependencies:
 #   None
@@ -24,4 +24,4 @@ module.exports = (robot) ->
     username = msg.message.user.name
 
     # TODO: check max puercopop mentions
-    msg.send "#{username}, Ningún peruano decente discute con puercopop"
+    msg.send "#{username}, ningún peruano decente y bien informado discute con PuercoPop."
