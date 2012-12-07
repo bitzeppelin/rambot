@@ -15,13 +15,17 @@
 
 
 # Max number of puercopop mentions
-puercopop_mentions = 3
+MAX_PUERCOPOP_MENTIONS = 3
 
 module.exports = (robot) ->
-  robot.brain.data.puercopop_mentions ||= 0
 
   robot.hear /puercopop/i, (msg) ->
-    username = msg.message.user.name
+    name = msg.message.user.name
+    user = robot.userForName name
 
-    # TODO: check max puercopop mentions
-    msg.send "#{username}, ningún peruano decente y bien informado discute con PuercoPop."
+    if typeof user is 'object'
+      user.puercopop_mentions ||= 0
+      user.puercopop_mentions += 1
+      if user.puercopop_mentions >= MAX_PUERCOPOP_MENTIONS
+        user.puercopop_mentions = 0
+        msg.send "#{username}, ningún peruano decente y bien informado discute con PuercoPop."
