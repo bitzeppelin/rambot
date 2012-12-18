@@ -28,4 +28,4 @@ module.exports = (robot) ->
       user.puercopop_mentions += 1
       if user.puercopop_mentions >= MAX_PUERCOPOP_MENTIONS
         user.puercopop_mentions = 0
-        msg.send "#{username}, ningún peruano decente y bien informado discute con PuercoPop."
+        msg.send "#{name}, ningún peruano decente y bien informado discute con PuercoPop."
