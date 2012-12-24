@@ -14,7 +14,7 @@
 #   marsam
 
 
-PHP = [
+PHP_MESSAGES = [
   {'msg': '', 'img': 'http://i.imgur.com/VNgxK.gif'},
   {'msg': '', 'img': 'http://i.imgur.com/BzLph.gif'},
   {'msg': '', 'img': 'http://i.imgur.com/ZGRbj.gif'},
@@ -25,10 +25,16 @@ PHP = [
   {'msg': '', 'img': 'http://media.tumblr.com/tumblr_m5j44q1psI1rqfksw.gif'},
 ]
 
+PHP_TAGS = ['what-the-fuck', 'nope', 'are-you-kidding-me', 'disgust', 'horrified']
+
 
 module.exports = (robot) ->
   robot.hear /(me\s+gusta|i\s+like|i\s+love|amo)\s+php/i, (msg) ->
     username = msg.message.user.name
 
-    message = msg.random PHP
-    msg.send "#{username}, #{message.msg} #{message.img}"
+    if Math.random() < 0.5
+      tag = msg.random PHP_TAGS
+      msg.send "#{username}, http://apps.whatcheerinc.com/replygif/#{tag}.gif"
+    else
+      message = msg.random PHP_MESSAGES
+      msg.send "#{username}, #{message.msg} #{message.img}"
