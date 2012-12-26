@@ -7,20 +7,6 @@
 #
 
 
-Array::pushArray = (arr) ->
-  this.push.apply(this, arr)
-
-
-# Unassigned http status codes
-UNASSIGNED = []
-UNASSIGNED.pushArray [103..199]
-UNASSIGNED.pushArray [209..225]
-UNASSIGNED.pushArray [227..299]
-UNASSIGNED.pushArray [309..399]
-UNASSIGNED.pushArray [432..499]
-UNASSIGNED.pushArray [512..599]
-
-
 HTTP_CODES =
   # 1xx: Informational
   100: [ # Continue
@@ -212,9 +198,9 @@ module.exports = (robot) ->
   robot.respond /httpcats ?(\d{3})?/i, (msg) ->
     httpcode = parseInt msg.match[1]
     if httpcode
-      unless HTTP_CODES[httpcode]? or httpcode in UNASSIGNED
-        msg.send "Nice try #{httpcode} is an unassigned http code"
-      else
+      if HTTP_CODES[httpcode]?
         msg.send HTTP_CODES[httpcode]
+      else
+        msg.send "Nice try #{httpcode} is an unassigned http code"
     else
       msg.send '42'
