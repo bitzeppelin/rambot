@@ -26,7 +26,6 @@ twit = new twitter options
 module.exports = (robot) ->
   robot.respond /hansy(facts)? (.*)$/i, (msg) ->
     status = msg.match[2].replace(/'/g, "\'")
-    msg.send("sdfdf #{status}")
     twit
       .updateStatus "#{status}", (err, data) -> if err then msg.send(err) else msg.send('ok')
 
