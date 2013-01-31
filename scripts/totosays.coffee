@@ -15,6 +15,10 @@
 
 twitter       = require 'ntwitter'
 
+String::escape = ->
+  this.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\@]/g, "\\$&"
+
+
 options =
   consumer_key: process.env.TOTO_CONSUMER_KEY
   consumer_secret: process.env.TOTO_CONSUMER_SECRET
@@ -25,7 +29,8 @@ twit = new twitter options
 
 module.exports = (robot) ->
   robot.respond /(shit)?toto(says)? (.*)$/i, (msg) ->
-    status = msg.match[3].replace(/'/g, "\'")
+    status = msg.match[3]
+    msg.send("#{status.escape()}")
     twit
       .updateStatus "#{status}", (err, data) -> if err then msg.send(err) else msg.send('ok')
 
