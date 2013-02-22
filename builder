@@ -30,7 +30,7 @@ npm install -g coffee-script
 if [ -n "$SERVICE_HUBOT_VERSION" ]; then
   npm install -g hubot@$SERVICE_HUBOT_VERSION
 else
-  npm install -g hubot
+  npm install -g git+https://github.com/github/hubot.git
 fi
 
 # Creating hubot ##############################################################

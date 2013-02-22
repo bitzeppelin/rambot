@@ -6,7 +6,7 @@ hubot:
   type: custom
   buildscript: builder
   process: ~/run
-  node_version: v0.6.19
+  node_version: v0.8.20
   hubot:
     name: rambot
   dependencies:
