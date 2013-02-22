@@ -30,15 +30,15 @@ PHP_TAGS = ['what-the-fuck', 'nope', 'are-you-kidding-me', 'disgust', 'horrified
 
 module.exports = (robot) ->
   robot.hear ///(
-    ?:
+    ?: amo
+     | adoro
+     | i?\s+like(?:s)?
+     | i?\s+love(?:s)?
      | me\s+gusta
-     | i\s+like
-     | i\s+love
-     | amo
-  )\s+php///i, (msg) ->
+    )\s+php///i, (msg) ->
     username = msg.message.user.name
 
-    if Math.random() < 0.5
+    if msg.random([0, 1])
       tag = msg.random PHP_TAGS
       msg.send "#{username}, http://apps.whatcheerinc.com/replygif/#{tag}.gif"
     else
