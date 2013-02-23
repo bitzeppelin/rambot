@@ -13,7 +13,7 @@
 # Author:
 #   marsam
 
-twitter       = require 'ntwitter'
+Twit       = require 'twit'
 
 options =
   consumer_key: process.env.HANSY_CONSUMER_KEY
@@ -21,12 +21,11 @@ options =
   access_token_key: process.env.HANSY_TOKEN_KEY
   access_token_secret: process.env.HANSY_TOKEN_SECRET
 
-twit = new twitter options
+T = new Twit options
 
 module.exports = (robot) ->
-  robot.respond /hansy(facts)? (.*)$/i, (msg) ->
-    status = msg.match[2].replace(/'/g, "\'")
-    twit
-      .updateStatus "#{status}", (err, data) -> if err then msg.send(err) else msg.send('ok')
-
-# vim:cuc:cc=80:
+  robot.respond /hansy(?:fact(?:s)?)? (.*)$/i, (msg) ->
+    status = msg.match[1]
+    params =
+      status: status
+    T.post 'statuses/update', params, (err, reply) -> if err then msg.send(err) else msg.send('ok')

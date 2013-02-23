@@ -47,7 +47,7 @@ fi
   cd $HUBOT_DIR
   npm update
   npm install hubot-irc
-  npm install ntwitter
+  npm install twit
   npm install underscore
 )
 

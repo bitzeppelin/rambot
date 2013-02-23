@@ -13,11 +13,7 @@
 # Author:
 #   marsam
 
-twitter       = require 'ntwitter'
-
-String::escape = ->
-  this.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\@]/g, "\\$&"
-
+Twit       = require 'twit'
 
 options =
   consumer_key: process.env.TOTO_CONSUMER_KEY
@@ -25,12 +21,11 @@ options =
   access_token_key: process.env.TOTO_TOKEN_KEY
   access_token_secret: process.env.TOTO_TOKEN_SECRET
 
-twit = new twitter options
+T = new Twit options
 
 module.exports = (robot) ->
-  robot.respond /(shit)?toto(says)? (.*)$/i, (msg) ->
-    status = msg.match[3]
-    twit
-      .updateStatus "#{status.escape()}", (err, data) -> if err then msg.send(err) else msg.send('ok')
-
-# vim:cuc:cc=80:
+  robot.respond /(?:shit)?toto(?:says)? (.*)$/i, (msg) ->
+    status = msg.match[1]
+    params =
+      status: status
+    T.post 'statuses/update', params, (err, reply) -> if err then msg.send(err) else msg.send('ok')
