@@ -24,5 +24,5 @@ module.exports = (robot) ->
           msg.send "#{response.domain} looks UP from here."
         else if response.status_code is 2
           msg.send "#{response.domain} looks DOWN from here."
-        else if status_code is 3
+        else
           msg.send "Not sure, #{response.domain} returned an error."
