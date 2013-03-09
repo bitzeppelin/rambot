@@ -66,7 +66,7 @@ cat > ~/run << EOF
 #!/bin/sh
 
 cd $HUBOT_DIR
-exec bin/hubot --adapter irc --name $HUBOT --alias '/'
+exec bin/hubot --adapter irc --name $HUBOT --alias '!'
 EOF
 
 chmod +x ~/run
