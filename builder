@@ -54,6 +54,9 @@ fi
 
 mv $CODEROOT/scripts/* $HUBOT_DIR/scripts
 
+# A little hack. hubot die returns 1, so supervisord try to restart it.
+sed -ie 's:process.exit 0:process.exit 1:gi' $HUBOT_DIR/scripts/ping.coffee
+
 # Configuring hubot ###########################################################
 
 cat > ~/profile << EOF
