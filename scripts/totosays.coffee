@@ -18,7 +18,7 @@ Twit       = require 'twit'
 options =
   consumer_key: process.env.TOTO_CONSUMER_KEY
   consumer_secret: process.env.TOTO_CONSUMER_SECRET
-  access_token_key: process.env.TOTO_TOKEN_KEY
+  access_token: process.env.TOTO_TOKEN_KEY
   access_token_secret: process.env.TOTO_TOKEN_SECRET
 
 T = new Twit options
@@ -28,4 +28,9 @@ module.exports = (robot) ->
     status = msg.match[1]
     params =
       status: status
-    T.post 'statuses/update', params, (err, reply) -> if err then msg.send(err) else msg.send('ok')
+    T.post 'statuses/update', params,
+      (err, reply) ->
+        if err
+          msg.send "Human, Twitter gave me the following errors: #{err.data}"
+        else
+          msg.send "https://twitter.com/#{reply.user.screen_name}/status/#{reply.id_str}/"
