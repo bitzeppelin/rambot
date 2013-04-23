@@ -1,8 +1,21 @@
-*.pyc
-*.swp
+*.py[cod]
 node_modules
 environment.json
 private.environment.json
 *.sublime*
 .codeintel
 .dotcloud
+.vagrant
+Berksfile.lock
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
