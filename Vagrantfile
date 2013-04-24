@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+
+require 'json'
+
+
 Vagrant.configure("2") do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
@@ -26,11 +30,15 @@ Vagrant.configure("2") do |config|
   # end
 
   config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      :nodejs => {
-        :install_method => "package",
-      },
-    }
+    if File.exists? "rambot.json" # chef solo configuration
+      chef.json = JSON.load(File.open("rambot.json"))
+    else
+      chef.json = {
+        :nodejs => {
+          :install_method => "package",
+        },
+      }
+    end
 
     chef.run_list = [
         "recipe[rambot::default]"

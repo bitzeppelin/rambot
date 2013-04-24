@@ -1,9 +1,11 @@
 
-root = File.absolute_path(File.dirname(__FILE__))
+current_dir = File.absolute_path(File.dirname(__FILE__))
 
-file_cache_path           "#{root}"
-data_bag_path             "#{root}/data_bags"
-encrypted_data_bag_secret "#{root}/data_bag_key"
-cookbook_path             [ "#{root}/cookbooks" ]
-role_path                 "#{root}/roles"
+log_level                 :info
+log_location              STDOUT
 
+file_cache_path           "#{current_dir}"
+data_bag_path             "#{current_dir}/data_bags"
+encrypted_data_bag_secret "#{current_dir}/data_bag_key"
+cookbook_path             [ "#{current_dir}/cookbooks" ]
+role_path                 "#{current_dir}/roles"
