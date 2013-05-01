@@ -9,6 +9,10 @@ from fabric.decorators import task
 env.hosts = ['hansyschmitt.com']
 env.user = 'marsam'
 
+env.timeout = 120
+env.forward_agent = True
+env.use_ssh_config = True
+
 
 @task(default=True)
 def whoami():

@@ -16,13 +16,11 @@ env HUBOT_USER="<%= @user %>"
 # httpd listen port
 env PORT="<%= @port %>"
 
-# irc-specific environment variables
+# environment variables
 # https://github.com/github/hubot/wiki/Adapter:-IRC
-env HUBOT_IRC_NICK="<%= @irc['HUBOT_IRC_NICK'] %>"
-env HUBOT_IRC_ROOMS="<%= @irc['HUBOT_IRC_ROOMS'] %>"
-env HUBOT_IRC_SERVER="<%= @irc['HUBOT_IRC_SERVER'] %>"
-env HUBOT_IRC_PASSWORD="<%= @irc['HUBOT_IRC_PASSWORD'] %>"
-env HUBOT_IRC_UNFLOOD="<%= @irc['HUBOT_IRC_UNFLOOD'] %>"
+<% @env.each do |var, value|%>
+env <%= var %>="<%= value %>"
+<% end %>
 
 # Keep the process alive, limit to 5 restarts in 60s
 respawn

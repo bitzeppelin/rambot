@@ -15,9 +15,9 @@ default['hubot']['hubot_scripts'] = Array.new
 default['hubot']['port'] = 8080
 default['hubot']['server_name'] = "rambot.#{node['hostname']}"
 
-# Rambot specific env variables for irc adapter
-default['hubot']['irc'] = {
-  'HUBOT_IRC_NICK'      => 'hubot5555',
+# Rambot specific env variables
+default['hubot']['env'] = {
+  'HUBOT_IRC_NICK'      => 'interstella',
   'HUBOT_IRC_ROOMS'     => '#hubot',
   'HUBOT_IRC_SERVER'    => 'irc.freenode.net',
   'HUBOT_IRC_PASSWORD'  => '',
