@@ -1,6 +1,8 @@
+# This file is maintained by chef - LOCAL CHANGES WILL BE LOST
+
 server {
   listen   80;
-  server_name  <%= node['rambot']['server_name'] %>;
+  server_name  <%= node['hubot']['server_name'] %>;
 
   access_log  <%= node['nginx']['log_dir'] %>/rambot.access.log;
   error_log   <%= node['nginx']['log_dir'] %>/rambot.error.log;
@@ -8,6 +10,6 @@ server {
   charset utf-8;
 
   location / {
-    proxy_pass http://127.0.0.1:<%= node['rambot']['port'] %>;
+    proxy_pass http://127.0.0.1:<%= node['hubot']['port'] %>;
   }
 }

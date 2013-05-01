@@ -37,9 +37,29 @@ Vagrant.configure("2") do |config|
         :nodejs => {
           :install_method => "package",
         },
+        :redis => {
+          :version => "2.6.12",
+          :init => "upstart",
+        },
+        :nginx => {
+          :default_site_enabled => false,
+        },
+        :hubot => {
+          :version => 'master',
+          :install_dir => '/opt/rambot',
+          :hubot_scripts => [
+            'chuck-norris'
+          ],
+          :dependencies => {
+            "twit"        => "latest",
+            "hubot-irc"   => "0.1.12",
+            "underscore"  => "latest",
+          }
+        }
       }
     end
 
+    chef.log_level = :debug
     chef.run_list = [
         "recipe[rambot::default]"
     ]

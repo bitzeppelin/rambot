@@ -4,4 +4,5 @@ metadata
 
 cookbook 'git'
 cookbook 'nginx', git: 'git://github.com/opscode-cookbooks/nginx.git'
+cookbook 'redis', git: 'git://github.com/gchef/redis-cookbook.git'
 cookbook 'nodejs'
