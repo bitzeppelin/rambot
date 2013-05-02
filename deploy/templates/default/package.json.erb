@@ -17,9 +17,9 @@
   },
 
   "dependencies": {
-    <%- @dependencies.each_pair do |dep, version| -%>
+    <% @dependencies.each do |dep, version| %>
     "<%= dep %>": "<%= version %>",
-    <%- end -%>
+    <% end %>
     "hubot":         ">= 2.5.0",
     "hubot-scripts": ">= 2.4.2"
   },

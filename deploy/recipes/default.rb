@@ -2,7 +2,6 @@
 # Which is licensed under the Apache License.
 
 include_recipe "git"
-include_recipe "redis"
 include_recipe "nodejs::install_from_package"
 
 dependendies = %w{libexpat1-dev libssl-dev redis-server}
