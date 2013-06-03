@@ -21,13 +21,12 @@ options =
   access_token: process.env.HANSY_TOKEN_KEY
   access_token_secret: process.env.HANSY_TOKEN_SECRET
 
-T = new Twit options
-
 module.exports = (robot) ->
   robot.respond /hansy(?:fact(?:s)?)? (.*)$/i, (msg) ->
     status = msg.match[1]
     params =
       status: status
+    T = new Twit options
     T.post 'statuses/update', params,
       (err, reply) ->
         if err

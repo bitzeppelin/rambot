@@ -21,7 +21,7 @@ module.exports = (robot) ->
 
   robot.hear /puercopop/i, (msg) ->
     name = msg.message.user.name
-    user = robot.userForName name
+    user = robot.brain.userForName name
 
     if typeof user is 'object'
       user.puercopop_mentions ||= 0
