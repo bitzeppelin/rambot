@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from fabric.api import env
-from fabric.colors import green
 from fabric.decorators import task
 from fabric.operations import run, sudo, put
 from fabric.context_managers import cd
@@ -13,22 +12,22 @@ env.user = 'marsam'
 env.timeout = 120
 env.forward_agent = True
 env.use_ssh_config = True
-env.repo = '/home/marsam/rambot'
+env.workdir = '/opt/rambot'
 
 
 @task(default=True)
 def deploy():
-    put('rambot.json', '/home/marsam/rambot.json')
-    with cd(env.repo):
-        # installing cookbooks with berkshelf
-        run('/opt/chef/embedded/bin/berks install -b /home/marsam/rambot/deploy/Berksfile --path=cookbooks')  # nopep8
-        sudo('chef-solo -c solo.rb -j /home/marsam/rambot.json')
+    with cd(env.workdir):
+        put('rambot.private.json', 'rambot.private.json')
+        run('git pull --rebase')
+        # -b Berksfile needs to be absolute path
+        run('/opt/chef/embedded/bin/berks install -b %s/deploy/Berksfile --path=cookbooks' % env.workdir)  # nopep8
+        # run('/opt/chef/embedded/bin/berks install --path=cookbooks')
+        # sudo('chef-solo -c solo.rb -j rambot.private.json')
 
 
 @task
 def bootstrap():
-    print(green('Installing chef'))
+    sudo('apt-get install -y libxml2-dev libxslt1-dev')
     sudo('wget -O- "https://www.opscode.com/chef/install.sh" | bash')
-    # I know this is pretty clumsy, but because we install chef trough omnibus
-    # installer, I feel it reasonable
-    run('/opt/chef/embedded/bin/gem install berkshelf')
+    sudo('/opt/chef/embedded/bin/gem install berkshelf')

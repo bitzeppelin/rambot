@@ -1,7 +1,0 @@
-site :opscode
-
-metadata
-
-cookbook 'git'
-cookbook 'nginx', git: 'git://github.com/opscode-cookbooks/nginx.git'
-cookbook 'nodejs'

@@ -19,3 +19,5 @@ Berksfile.lock
 Gemfile.lock
 bin/*
 .bundle/*
+*.tar.gz
+rambot.private.json

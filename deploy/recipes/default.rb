@@ -1,85 +1,79 @@
-# This recipe was adapted from [hubot-cookbook](https://github.com/schisamo-cookbooks/hubot)
-# Which is licensed under the Apache License.
+# Cookbook Name:: rambot
+# Recipe:: default
 
-include_recipe "git"
-include_recipe "nodejs::install_from_package"
+node.set['hubot']['version'] = "2.4.6"
+node.set['hubot']['scripts_version'] = "2.4.1"
+node.set['hubot']['install_dir'] = "/srv/hubot"
+node.set['hubot']['adapter'] = "irc"
 
-dependendies = %w{libexpat1-dev libssl-dev redis-server}
+# node.set['hubot']['name'] = "tiraniox"
 
-dependendies.each do |pkg|
-  package pkg
+node.set['hubot']['dependencies'] = {
+  "twit"              => "latest",
+  "hubot-irc"         => ">= 0.1.12",
+  "underscore"        => "latest",
+}
+
+node.set['hubot']['hubot_scripts'] = %w{
+  ackbar.coffee
+  applause.coffee
+  ascii.coffee
+  b6n.coffee
+  base64.coffee
+  beerme.coffee
+  botsnack.coffee
+  cheer.coffee
+  cowsay.coffee
+  dnsimple.coffee
+  gemwhois.coffee
+  github-status.coffee
+  good-night.coffee
+  goooood.coffee
+  horse.coffee
+  haters.coffee
+  kittens.coffee
+  likeaboss.coffee
+  look-of-disapproval.coffee
+  nice.coffee
+  pinkman.coffee
+  polite.coffee
+  quote.coffee
+  rageface.coffee
+  rimshot.coffee
+  rubygems.coffee
+  shipit.coffee
+  shorten.coffee
+  spin.coffee
+  sudo.coffee
+  sweetdude.coffee
+  tweet.coffee
+  walmart.coffee
+  wat.coffee
+  wunderground.coffee
+  xkcd.coffee
+  yoda-quotes.coffee
+  yuno.coffee
+}
+
+# OS packages required by assorted Hubot scripts
+%w{ libexpat1 libexpat1-dev libicu-dev }.each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
-user node['hubot']['user'] do
-  comment "Hubot User"
-  home node['hubot']['install_dir']
-end
+include_recipe "hubot"
 
-group node['hubot']['group'] do
-  members [node['hubot']['user']]
-end
-
-directory node['hubot']['install_dir'] do
+remote_directory "#{node['hubot']['install_dir']}/scripts" do
+  source "scripts"
+  files_backup 0
+  files_owner node['hubot']['user']
+  files_group node['hubot']['group']
+  files_mode 00644
   owner node['hubot']['user']
   group node['hubot']['group']
-  recursive true
-  mode  0755
-end
-
-checkout_location = ::File.join(Chef::Config[:file_cache_path], "hubot")
-git checkout_location do
-  repository "git://github.com/github/hubot.git"
-  revision "#{node['hubot']['version']}"
-  action :checkout
-  notifies :run, "execute[build and install hubot]", :immediately
-end
-
-execute "build and install hubot" do
-  command <<-EOH
-  npm install
-  bin/hubot -c #{node['hubot']['install_dir']}
-  chown #{node['hubot']['user']}:#{node['hubot']['group']} -R #{node['hubot']['install_dir']}
-  chmod 0755 #{node['hubot']['install_dir']}/bin/hubot
-  EOH
-  cwd checkout_location
-  environment(
-    "PATH" => "#{checkout_location}/node_modules/.bin:#{ENV['PATH']}"
-  )
-  # action :nothing
-end
-
-template "#{node['hubot']['install_dir']}/package.json" do
-  source 'package.json.erb'
-  owner node['hubot']['user']
-  group node['hubot']['group']
-  mode 0644
-  variables node['hubot'].to_hash
-  notifies :run, "execute[npm install]", :immediately
-end
-
-execute "npm install" do
-  cwd node['hubot']['install_dir']
-  user node['hubot']['user']
-  group node['hubot']['group']
-  environment(
-    "USER" => node['hubot']['user'],
-    "HOME" => node['hubot']['install_dir']
-  )
-  action :nothing
+  overwrite true
+  mode 00755
   notifies :restart, "service[hubot]", :delayed
 end
 
-template "/etc/init/hubot.conf" do
-  source "hubot.conf.erb"
-  owner  "root"
-  group  "root"
-  mode   0744
-  variables node['hubot'].to_hash
-end
-
-service "hubot" do
-  provider Chef::Provider::Service::Upstart
-  # action [:enable, :start]
-  action :nothing
-  subscribes :reload, resources("template[/etc/init/hubot.conf]"), :immediately
-end
