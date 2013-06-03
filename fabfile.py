@@ -22,8 +22,7 @@ def deploy():
         run('git pull --rebase')
         # -b Berksfile needs to be absolute path
         run('/opt/chef/embedded/bin/berks install -b %s/deploy/Berksfile --path=cookbooks' % env.workdir)  # nopep8
-        # run('/opt/chef/embedded/bin/berks install --path=cookbooks')
-        # sudo('chef-solo -c solo.rb -j rambot.private.json')
+        sudo('chef-solo -c solo.rb -j rambot.private.json')
 
 
 @task
