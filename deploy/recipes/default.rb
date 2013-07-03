@@ -10,6 +10,7 @@ node.set['hubot']['adapter'] = "irc"
 
 node.set['hubot']['dependencies'] = {
   "twit"              => "latest",
+  "cradle"            => "latest",
   "hubot-irc"         => ">= 0.1.12",
   "underscore"        => "latest",
 }
