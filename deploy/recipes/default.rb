@@ -2,7 +2,7 @@
 # Recipe:: default
 
 node.set['hubot']['version'] = "2.4.6"
-node.set['hubot']['scripts_version'] = "2.4.1"
+node.set['hubot']['scripts_version'] = "latest"
 node.set['hubot']['install_dir'] = "/srv/hubot"
 node.set['hubot']['adapter'] = "irc"
 
