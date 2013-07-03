@@ -2,7 +2,7 @@
 #   HansyFacts megabot
 #
 # Dependencies:
-#   ntwitter
+#   twit
 #
 # Configuration:
 #

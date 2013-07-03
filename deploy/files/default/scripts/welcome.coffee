@@ -14,16 +14,17 @@
 #   marsam
 
 module.exports = (robot) ->
-  robot.brain.on 'loaded', =>
-    robot.brain.data.welcomeUsers ||= []
 
   # IRC adapter
   if robot.adapter.bot?
     robot.adapter.bot.on "join", (channel, who) ->
       return if who is robot.name
-      user = robot.adapter.getUserFromName who
-      user.room = channel
-      envelope =
-        user: user
-      robot.adapter.reply envelope, "Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
-      robot.brain.data.welcomeUsers.push who
+      welcomeUsers = robot.brain.get("welcomeUsers") ? []
+      user = robot.brain.userForName who
+      if user.name not in welcomeUsers
+        user.room = channel
+        envelope =
+          user: user
+        robot.adapter.reply envelope, "Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
+        welcomeUsers.push user.name
+        robot.brain.set "welcomeUsers" welcomeUsers

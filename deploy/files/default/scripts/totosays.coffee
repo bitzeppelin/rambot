@@ -2,7 +2,7 @@
 #   Because we love whatever cibertoto says.
 #
 # Dependencies:
-#   ntwitter
+#   twit
 #
 # Configuration:
 #
