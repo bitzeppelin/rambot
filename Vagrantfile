@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 
   # Berkshelf
   config.berkshelf.enabled = true
-  # config.berkshelf.berksfile_path = File.join(File.dirname(__FILE__), "deploy", "Berksfile")
+  config.berkshelf.berksfile_path = File.join(File.dirname(__FILE__), "deploy", "Berksfile")
 
   # Chef
   config.omnibus.chef_version = :latest
