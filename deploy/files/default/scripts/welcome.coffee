@@ -25,6 +25,7 @@ module.exports = (robot) ->
         user.room = channel
         envelope =
           user: user
-        robot.adapter.reply envelope, "Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
+        console.log "Envelope: #{envelope}"
+        robot.adapter.send envelope, "#{user.name}, Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
         welcomeUsers.push user.name
-        robot.brain.set "welcomeUsers" welcomeUsers
+        robot.brain.set "welcomeUsers", welcomeUsers
