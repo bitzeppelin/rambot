@@ -20,8 +20,10 @@ module.exports = (robot) ->
   # IRC adapter
   if robot.adapter.bot?
     robot.adapter.bot.on "join", (channel, who) ->
-      envelope =
+      return if who is robot.name
+      envelope = {
         user: who
         room: channel
+      }
       robot.adapter.reply envelope, "Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
       robot.brain.data.welcomeUsers.push who

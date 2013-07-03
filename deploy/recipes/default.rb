@@ -11,7 +11,7 @@ node.set['hubot']['adapter'] = "irc"
 node.set['hubot']['dependencies'] = {
   "twit"              => "latest",
   "cradle"            => "latest",
-  "hubot-irc"         => ">= 0.1.12",
+  "hubot-irc"         => ">= 0.1.15",
   "underscore"        => "latest",
 }
 
@@ -43,7 +43,6 @@ node.set['hubot']['hubot_scripts'] = %w{
   rimshot.coffee
   rubygems.coffee
   shipit.coffee
-  shorten.coffee
   spin.coffee
   sudo.coffee
   sweetdude.coffee
