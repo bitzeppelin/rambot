@@ -21,9 +21,9 @@ module.exports = (robot) ->
   if robot.adapter.bot?
     robot.adapter.bot.on "join", (channel, who) ->
       return if who is robot.name
-      envelope = {
-        user: who
-        room: channel
-      }
+      user = robot.adapter.getUserFromName who
+      user.room = channel
+      envelope =
+        user: user
       robot.adapter.reply envelope, "Bienvenid@ a #limaJS, una congregación del Church of NaN, también conocida como: python.js, el club del debate y AA."
       robot.brain.data.welcomeUsers.push who
