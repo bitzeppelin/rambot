@@ -53,6 +53,7 @@ node.set['hubot']['hubot_scripts'] = %w{
   xkcd.coffee
   yoda-quotes.coffee
   yuno.coffee
+  stallman.coffee
 }
 
 # OS packages required by assorted Hubot scripts
