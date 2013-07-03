@@ -1,7 +1,7 @@
 # Cookbook Name:: rambot
 # Recipe:: default
 
-node.set['hubot']['version'] = "2.4.6"
+node.set['hubot']['version'] = "2.5.4"
 node.set['hubot']['scripts_version'] = "latest"
 node.set['hubot']['install_dir'] = "/srv/hubot"
 node.set['hubot']['adapter'] = "irc"
@@ -46,7 +46,6 @@ node.set['hubot']['hubot_scripts'] = %w{
   spin.coffee
   sudo.coffee
   sweetdude.coffee
-  tweet.coffee
   walmart.coffee
   wat.coffee
   wunderground.coffee
