@@ -31,10 +31,10 @@ ZEN = [
   "If the implementation is hard to explain, it's a bad idea.",
   "If the implementation is easy to explain, it may be a good idea.",
   "Namespaces are one honking great idea -- let's do more of those!",
-  ]
+]
 
 module.exports = (robot) ->
-  robot.respond /zen(python)?(\s+\d+)?/i, (msg) ->
+  robot.respond /python(zen)?(\s+\d+)?/i, (msg) ->
     num = parseInt(msg.match[2])
     if num and num < ZEN.length
       msg.send ZEN[num+1]
