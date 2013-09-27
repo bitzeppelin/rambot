@@ -14,5 +14,12 @@
 #   marsam
 
 module.exports = (robot) ->
-  robot.hear /lisp/i, (msg) ->
+  robot.hear ///
+         lisp
+       | emacs
+       | racket
+       | clojure
+       | symbolics
+       | genera
+       ///i, (msg) ->
     msg.send "*drink*"
