@@ -1,12 +1,10 @@
 # Cookbook Name:: rambot
 # Recipe:: default
 
-node.set['hubot']['version'] = "2.6.0"
+node.set['hubot']['version'] = "2.6.3"
 node.set['hubot']['scripts_version'] = "latest"
 node.set['hubot']['install_dir'] = "/srv/hubot"
 node.set['hubot']['adapter'] = "irc"
-
-# node.set['hubot']['name'] = "tiraniox"
 
 node.set['hubot']['dependencies'] = {
   "twit"              => "latest",
@@ -72,6 +70,14 @@ node.set['hubot']['hubot_scripts'] = %w{
   yoda-quotes.coffee
   yuno.coffee
   zen.coffee
+  emoji.coffee
+  homer.coffee
+  trollicon.coffee
+  illogical.coffee
+  mindkiller.coffee
+  ping.coffee
+  zombies.coffee
+  rands-when-you-say.coffee
 }
 
 # OS packages required by assorted Hubot scripts
