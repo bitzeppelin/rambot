@@ -15,6 +15,8 @@ node.set['hubot']['dependencies'] = {
 }
 
 node.set['hubot']['hubot_scripts'] = %w{
+  redis-brain.coffee
+
   abstract.coffee
   ascii.coffee
   aww.coffee
